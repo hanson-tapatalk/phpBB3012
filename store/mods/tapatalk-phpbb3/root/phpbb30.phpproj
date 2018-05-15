@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>phpbb30</Name>
+    <ProjectGuid>cc5b0ea6-dcac-4411-8be6-4516835f511f</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>phpbb30</RootNamespace>
+    <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+    <AssemblyName>phpbb30</AssemblyName>
+    <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+    <Server>Custom</Server>
+    <CustomServerUrl>http://test.moledj.com/phpbb30/</CustomServerUrl>
+    <PublishEvent>BeforeRun</PublishEvent>
+    <PublishBeforeDebugProfile>phpbb30</PublishBeforeDebugProfile>
+    <PHPDevAutoPort>True</PHPDevAutoPort>
+    <PHPDevPort>61850</PHPDevPort>
+    <PHPDevHostName>localhost</PHPDevHostName>
+    <IISProjectUrl>http://localhost:61850/</IISProjectUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IncludeDebugInformation>true</IncludeDebugInformation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IncludeDebugInformation>false</IncludeDebugInformation>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="adm\" />
+    <Folder Include="adm\style\" />
+    <Folder Include="includes\" />
+    <Folder Include="includes\acp\" />
+    <Folder Include="includes\acp\info\" />
+    <Folder Include="language\" />
+    <Folder Include="language\en\" />
+    <Folder Include="language\en\mods\" />
+    <Folder Include="mobiquo\" />
+    <Folder Include="mobiquo\config\" />
+    <Folder Include="mobiquo\forum_icons\" />
+    <Folder Include="mobiquo\function\" />
+    <Folder Include="mobiquo\hook\" />
+    <Folder Include="mobiquo\images\" />
+    <Folder Include="mobiquo\include\" />
+    <Folder Include="mobiquo\push\" />
+    <Folder Include="mobiquo\smartbanner\" />
+    <Folder Include="mobiquo\smartbanner\images\" />
+    <Folder Include="umil\" />
+    <Folder Include="umil\error_files\" />
+    <Folder Include="umil\language\" />
+    <Folder Include="umil\language\ar\" />
+    <Folder Include="umil\language\da\" />
+    <Folder Include="umil\language\de\" />
+    <Folder Include="umil\language\de_x_sie\" />
+    <Folder Include="umil\language\en\" />
+    <Folder Include="umil\language\es\" />
+    <Folder Include="umil\language\fr\" />
+    <Folder Include="umil\language\fr_x_tu\" />
+    <Folder Include="umil\language\he\" />
+    <Folder Include="umil\language\hr\" />
+    <Folder Include="umil\language\hu\" />
+    <Folder Include="umil\language\id\" />
+    <Folder Include="umil\language\it\" />
+    <Folder Include="umil\language\ja\" />
+    <Folder Include="umil\language\nl-x-formal\" />
+    <Folder Include="umil\language\nl\" />
+    <Folder Include="umil\language\pl\" />
+    <Folder Include="umil\language\pt-br\" />
+    <Folder Include="umil\language\pt\" />
+    <Folder Include="umil\language\pt_br\" />
+    <Folder Include="umil\language\ro\" />
+    <Folder Include="umil\language\ru\" />
+    <Folder Include="umil\language\sk\" />
+    <Folder Include="umil\language\sv\" />
+    <Folder Include="umil\language\tr\" />
+    <Folder Include="umil\language\zh_cmn_hant\" />
+    <Folder Include="umil\style\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="adm\style\acp_mobiquo.html" />
+    <Content Include="mobiquo\forum_icons\index.html" />
+    <Content Include="mobiquo\images\byo-online.png" />
+    <Content Include="mobiquo\images\tapatalk-online.png" />
+    <Content Include="mobiquo\include\xmlrpc.inc" />
+    <Content Include="mobiquo\include\xmlrpcs.inc" />
+    <Content Include="mobiquo\license.txt" />
+    <Content Include="mobiquo\README.txt" />
+    <Content Include="mobiquo\smartbanner\appbanner.css" />
+    <Content Include="mobiquo\smartbanner\appbanner.js" />
+    <Content Include="mobiquo\smartbanner\images\star.png" />
+    <Content Include="mobiquo\smartbanner\images\tapatalk-banner-logo.png" />
+    <Content Include="mobiquo\smartbanner\README.md" />
+    <Content Include="umil\error_files\.htaccess" />
+    <Content Include="umil\error_files\index.htm" />
+    <Content Include="umil\index.htm" />
+    <Content Include="umil\language\index.htm" />
+    <Content Include="umil\style\confirm_body.html" />
+    <Content Include="umil\style\index.htm" />
+    <Content Include="umil\style\index_body.html" />
+    <Content Include="umil\style\message_body.html" />
+    <Content Include="umil\style\overall_footer.html" />
+    <Content Include="umil\style\overall_header.html" />
+    <Content Include="umil\style\parse.css" />
+    <Content Include="umil\style\style.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="includes\acp\acp_mobiquo.php" />
+    <Compile Include="includes\acp\info\acp_mobiquo.php" />
+    <Compile Include="language\en\mods\info_acp_mobiquo.php" />
+    <Compile Include="mobiquo\avatar.php" />
+    <Compile Include="mobiquo\config\config.php" />
+    <Compile Include="mobiquo\env_setting.php" />
+    <Compile Include="mobiquo\function\activate_account.php" />
+    <Compile Include="mobiquo\function\create_message.php" />
+    <Compile Include="mobiquo\function\delete_message.php" />
+    <Compile Include="mobiquo\function\delete_post.php" />
+    <Compile Include="mobiquo\function\forget_password.php" />
+    <Compile Include="mobiquo\function\function.php" />
+    <Compile Include="mobiquo\function\get_alert.php" />
+    <Compile Include="mobiquo\function\get_board_stat.php" />
+    <Compile Include="mobiquo\function\get_box.php" />
+    <Compile Include="mobiquo\function\get_box_info.php" />
+    <Compile Include="mobiquo\function\get_config.php" />
+    <Compile Include="mobiquo\function\get_contact.php" />
+    <Compile Include="mobiquo\function\get_forum.php" />
+    <Compile Include="mobiquo\function\get_id_by_url.php" />
+    <Compile Include="mobiquo\function\get_inbox_stat.php" />
+    <Compile Include="mobiquo\function\get_message.php" />
+    <Compile Include="mobiquo\function\get_online_users.php" />
+    <Compile Include="mobiquo\function\get_participated_forum.php" />
+    <Compile Include="mobiquo\function\get_quote_pm.php" />
+    <Compile Include="mobiquo\function\get_quote_post.php" />
+    <Compile Include="mobiquo\function\get_raw_post.php" />
+    <Compile Include="mobiquo\function\get_recommended_user.php" />
+    <Compile Include="mobiquo\function\get_subscribed_forum.php" />
+    <Compile Include="mobiquo\function\get_topic.php" />
+    <Compile Include="mobiquo\function\get_topic_participants.php" />
+    <Compile Include="mobiquo\function\get_user_info.php" />
+    <Compile Include="mobiquo\function\ignore_user.php" />
+    <Compile Include="mobiquo\function\invitation.php" />
+    <Compile Include="mobiquo\function\login.php" />
+    <Compile Include="mobiquo\function\login_forum.php" />
+    <Compile Include="mobiquo\function\logout_user.php" />
+    <Compile Include="mobiquo\function\mark_all_as_read.php" />
+    <Compile Include="mobiquo\function\mark_pm_read.php" />
+    <Compile Include="mobiquo\function\mark_pm_unread.php" />
+    <Compile Include="mobiquo\function\moderation.php" />
+    <Compile Include="mobiquo\function\new_topic.php" />
+    <Compile Include="mobiquo\function\prefetch_account.php" />
+    <Compile Include="mobiquo\function\register.php" />
+    <Compile Include="mobiquo\function\remove_attachment.php" />
+    <Compile Include="mobiquo\function\reply_post.php" />
+    <Compile Include="mobiquo\function\report_pm.php" />
+    <Compile Include="mobiquo\function\report_post.php" />
+    <Compile Include="mobiquo\function\save_raw_post.php" />
+    <Compile Include="mobiquo\function\search.php" />
+    <Compile Include="mobiquo\function\search_user.php" />
+    <Compile Include="mobiquo\function\sign_in.php" />
+    <Compile Include="mobiquo\function\subscribe_forum.php" />
+    <Compile Include="mobiquo\function\subscribe_topic.php" />
+    <Compile Include="mobiquo\function\unsubscribe_forum.php" />
+    <Compile Include="mobiquo\function\unsubscribe_topic.php" />
+    <Compile Include="mobiquo\function\update_password.php" />
+    <Compile Include="mobiquo\function\update_push_status.php" />
+    <Compile Include="mobiquo\function\viewtopic.php" />
+    <Compile Include="mobiquo\hook\functions_posting_hook.php" />
+    <Compile Include="mobiquo\hook\functions_privmsgs_hook.php" />
+    <Compile Include="mobiquo\hook\function_hook.php" />
+    <Compile Include="mobiquo\hook\head_output_hook.php" />
+    <Compile Include="mobiquo\hook\online_hook.php" />
+    <Compile Include="mobiquo\hook\register_hook.php" />
+    <Compile Include="mobiquo\hook\viewtopic_hook.php" />
+    <Compile Include="mobiquo\hook\view_message_hook.php" />
+    <Compile Include="mobiquo\hook\watch_topic_hook.php" />
+    <Compile Include="mobiquo\include\classTTCipherEncrypt.php" />
+    <Compile Include="mobiquo\include\classTTConnection.php" />
+    <Compile Include="mobiquo\include\classTTForum.php" />
+    <Compile Include="mobiquo\include\classTTJson.php" />
+    <Compile Include="mobiquo\include\classTTSSO.php" />
+    <Compile Include="mobiquo\include\emoji.php" />
+    <Compile Include="mobiquo\include\mobi_acp_email.php" />
+    <Compile Include="mobiquo\include\mobi_register.php" />
+    <Compile Include="mobiquo\include\mobi_ucp_profile.php" />
+    <Compile Include="mobiquo\include\mobi_ucp_remind.php" />
+    <Compile Include="mobiquo\include\mobi_ucp_zebra.php" />
+    <Compile Include="mobiquo\include\user.class.php" />
+    <Compile Include="mobiquo\mobiquo.php" />
+    <Compile Include="mobiquo\mobiquo_common.php" />
+    <Compile Include="mobiquo\pretreat.php" />
+    <Compile Include="mobiquo\push.php" />
+    <Compile Include="mobiquo\push\TapatalkBasePush.php" />
+    <Compile Include="mobiquo\push\TapatalkPush.php" />
+    <Compile Include="mobiquo\server_define.php" />
+    <Compile Include="mobiquo\smartbanner\head.inc.php" />
+    <Compile Include="mobiquo\upload.php" />
+    <Compile Include="mobiquo\web.php" />
+    <Compile Include="mobiquo\xmlrpcresp.php" />
+    <Compile Include="mobiquo_install.php" />
+    <Compile Include="umil\file.php" />
+    <Compile Include="umil\language\ar\umil.php" />
+    <Compile Include="umil\language\da\umil.php" />
+    <Compile Include="umil\language\de\umil.php" />
+    <Compile Include="umil\language\de_x_sie\umil.php" />
+    <Compile Include="umil\language\en\umil.php" />
+    <Compile Include="umil\language\es\umil.php" />
+    <Compile Include="umil\language\fr\umil.php" />
+    <Compile Include="umil\language\fr_x_tu\umil.php" />
+    <Compile Include="umil\language\he\umil.php" />
+    <Compile Include="umil\language\hr\umil.php" />
+    <Compile Include="umil\language\hu\umil.php" />
+    <Compile Include="umil\language\id\umil.php" />
+    <Compile Include="umil\language\it\umil.php" />
+    <Compile Include="umil\language\ja\umil.php" />
+    <Compile Include="umil\language\nl-x-formal\umil.php" />
+    <Compile Include="umil\language\nl\umil.php" />
+    <Compile Include="umil\language\pl\umil.php" />
+    <Compile Include="umil\language\pt-br\umil.php" />
+    <Compile Include="umil\language\pt\umil.php" />
+    <Compile Include="umil\language\pt_br\umil.php" />
+    <Compile Include="umil\language\ro\umil.php" />
+    <Compile Include="umil\language\ru\umil.php" />
+    <Compile Include="umil\language\sk\umil.php" />
+    <Compile Include="umil\language\sv\umil.php" />
+    <Compile Include="umil\language\tr\umil.php" />
+    <Compile Include="umil\language\zh_cmn_hant\umil.php" />
+    <Compile Include="umil\umil.php" />
+    <Compile Include="umil\umil_auto.php" />
+    <Compile Include="umil\umil_frontend.php" />
+  </ItemGroup>
+</Project>
