@@ -219,6 +219,34 @@ class ucp_register
 				}
 			}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			// DNSBL check
 			if ($config['check_dnsbl'])
 			{

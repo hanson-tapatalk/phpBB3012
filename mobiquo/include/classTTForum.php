@@ -4,6 +4,11 @@ defined('IN_MOBIQUO') or exit;
 class TTForum implements TTSSOForumInterface
 {
     // return user info array, including key 'email', 'id', etc.
+    public function getUserByID($uid)
+    {
+        return tt_get_user_by_id($uid);
+    }
+    // return user info array, including key 'email', 'id', etc.
     public function getUserByEmail($email)
     {
         return tt_get_user_by_email($email);
@@ -37,10 +42,11 @@ class TTForum implements TTSSOForumInterface
     // create a user, $verified indicate if it need user activation
     public function createUserHandle($email, $username, $password, $verified, $custom_register_fields, $profile, &$errors)
     {
-        global $config, $mobiquo_config,$db, $user, $auth, $template, $phpbb_root_path, $phpEx,$user_info,$register;
+        global $config, $mobiquo_config,$db, $user, $auth, $phpbb_root_path, $phpEx,$user_info;
 	    if ($config['require_activation'] == USER_ACTIVATION_DISABLE || $mobiquo_config['sso_signin'] == 0)
 		{
 			$errors[] = $user->lang['UCP_REGISTER_DISABLE'];
+			return false;
 		}
         $is_dst = $config['board_dst'];
 		$timezone = $config['board_timezone'];    
@@ -161,10 +167,19 @@ class TTForum implements TTSSOForumInterface
 					$birth_arr = explode('-', $profile['birthday']);
 					$user_row['user_birthday'] = sprintf('%2d-%2d-%4d', $birth_arr[2], $birth_arr[1], $birth_arr[0]);
 				}
-				
-				$user_row['user_from'] = $profile['location'];
-				$user_row['user_website'] = $profile['link'];
-				$user_row['user_sig'] = $profile['signature'];
+
+                if (!empty($profile['location']))
+                {
+                    $user_row['user_from'] = $profile['location'];
+                }
+                if (!empty($profile['link']))
+                {
+                    $user_row['user_website'] = $profile['link'];
+                }
+                if (!empty($profile['signature']))
+                {
+                    $user_row['user_sig'] = $profile['signature'];
+                }
 				
 			}
 			
@@ -274,7 +289,7 @@ class TTForum implements TTSSOForumInterface
     // login to an existing user, return result as bool
     public function loginUserHandle($user_info, $register)
     {
-	    global $config, $db, $user, $phpbb_root_path, $phpEx,$auth,$register;
+	    global $config, $db, $user, $phpbb_root_path, $phpEx,$auth;
 		header('Set-Cookie: mobiquo_a=0');
 	    header('Set-Cookie: mobiquo_b=0');
 	    header('Set-Cookie: mobiquo_c=0');
@@ -357,7 +372,7 @@ class TTForum implements TTSSOForumInterface
 		        'user_id'       => new xmlrpcval($user_info['user_id'], 'string'),
 		        'username'      => new xmlrpcval(basic_clean($user_info['username']), 'base64'),
 		        'login_name'    => new xmlrpcval(basic_clean($user_info['username']), 'base64'),
-		    	'email'         => new xmlrpcval($user_info['user_email'], 'base64'),
+		    	'email'         => new xmlrpcval(sha1(strtolower($user_info['user_email'])), 'base64'),
 				'user_type'     => check_return_user_type($user_info['user_id']),
 				//'tapatalk'      => new xmlrpcval(is_tapatalk_user($user->data['user_id']), 'string'),
 		        'usergroup_id'  => new xmlrpcval($usergroup_id, 'array'),

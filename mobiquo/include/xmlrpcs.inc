@@ -639,7 +639,7 @@
 				error_log('XML-RPC: '.__METHOD__.': http headers already sent before response is fully generated. Check for php warning or error messages');
 			}
             
-            @ob_end_clean();
+            if (MOBIQUO_DEBUG == 0 && ob_get_level() > 0) ob_end_clean();
 			print $payload;
 			// return request, in case subclasses want it
 			return $r;

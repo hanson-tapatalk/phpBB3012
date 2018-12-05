@@ -122,7 +122,7 @@ function login_func($xmlrpc_params)
         'user_id'       => new xmlrpcval($user->data['user_id'], 'string'),
         'username'      => new xmlrpcval(basic_clean($user->data['username']), 'base64'),
         'login_name'    => new xmlrpcval(basic_clean($user->data['username']), 'base64'),
-    	'email'         => new xmlrpcval($user->data['user_email'], 'base64'),
+    	'email'         => new xmlrpcval(sha1(strtolower($user->data['user_email'])), 'base64'),
 		'user_type' 	=> check_return_user_type($user->data['user_id']),
 		//'tapatalk'      => new xmlrpcval(is_tapatalk_user($user->data['user_id']), 'string'),
         'usergroup_id'  => new xmlrpcval($usergroup_id, 'array'),

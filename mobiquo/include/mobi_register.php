@@ -86,14 +86,7 @@ class mobi_ucp_register
 				$error[] = sprintf($user->lang['IP_BLACKLISTED'], $user->ip, $dnsbl[1]);
 			}
 		}
-		
-		if(!$verify_result)
-	    {
-	    	if(isset($config['tapatalk_spam_status']) && ($config['tapatalk_spam_status'] === '1' || $config['tapatalk_spam_status'] === '3') && tt_is_spam($email,$user->ip))
-	    	{
-				trigger_error("Your email address matches that of a known spammer and therefore you cannot register here. If you feel this is an error, please contact the administrator or try again later.");
-	    	}
-	    }
+
 		// validate custom profile fields
 		$cp->submit_cp_field('register', $user->get_iso_lang_id(), $cp_data, $error);
 

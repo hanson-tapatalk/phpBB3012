@@ -17,19 +17,19 @@ if(!defined('TT_ROOT'))
     define('TT_ROOT', $phpbb_root_path . $config['tapatalkdir'] . '/');
 }
 
-require_once TT_ROOT . 'include/classTTConnection.' . $phpEx;
-$connection = new classTTConnection();
-$bannerControlValue = $config['tapatalk__banner_control'];
-$bannerControlLastCheckValue = $config['tapatalk__banner_lastCheck'];
-if($connection->bannerControlAllowedByPlugin($bannerControlValue, $bannerControlLastCheckValue, $board_url, $config['tapatalk_push_key']))
-{
-    set_config('tapatalk__banner_control', $bannerControlValue);
-    set_config('tapatalk__banner_lastCheck', $bannerControlLastCheckValue);
-}
-if(!$bannerControlValue || $bannerControlValue == 0)
-{
-    $config['tapatalk_app_banner_enable'] = 1;
-}
+//require_once TT_ROOT . 'include/classTTConnection.' . $phpEx;
+//$connection = new classTTConnection();
+//$bannerControlValue = $config['tapatalk__banner_control'];
+//$bannerControlLastCheckValue = $config['tapatalk__banner_lastCheck'];
+//if($connection->bannerControlAllowedByPlugin($bannerControlValue, $bannerControlLastCheckValue, $board_url, $config['tapatalk_push_key']))
+//{
+//    set_config('tapatalk__banner_control', $bannerControlValue);
+//    set_config('tapatalk__banner_lastCheck', $bannerControlLastCheckValue);
+//}
+//if(!$bannerControlValue || $bannerControlValue == 0)
+//{
+//    $config['tapatalk_app_banner_enable'] = 1;
+//}
 
 if(!isset($tapatalk_hook_run)) $tapatalk_hook_run = true;
 if($tapatalk_hook_run)
@@ -48,13 +48,13 @@ if($tapatalk_hook_run)
     {
         $api_key = isset($config['tapatalk_push_key']) ? $config['tapatalk_push_key'] : '';
         $app_banner_enable = isset($config['tapatalk_app_banner_enable']) ? $config['tapatalk_app_banner_enable'] : 1;
+        $google_indexing_enabled = isset($config['tapatalk_google_enable']) ? $config['tapatalk_google_enable'] : 1;
         $app_forum_name = $config['sitename'];
         $tapatalk_dir_url = $board_url . $tapatalk_dir;
         $is_mobile_skin = 0;
-        $app_location_url = $tapatalk_location_url;
-        $twitterfacebook_card_enabled = $config['tapatalk_twitterfacebook_card_enabled'];
+        $app_location = $tapatalk_location_url;
         
-        preg_match('/location=(\w+)/is', $app_location_url,$matches);
+        preg_match('/location=(\w+)/is', $app_location,$matches);
         $page_type = "other";
         if(!empty($matches[1]))
         {

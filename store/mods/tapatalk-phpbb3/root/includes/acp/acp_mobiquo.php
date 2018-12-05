@@ -38,42 +38,27 @@ class acp_mobiquo
                     'title'    => 'ACP_MOBIQUO_SETTINGS',
                     'vars'    => array(
                         'legend'                    => 'GENERAL_OPTIONS',
-                        'tapatalk_push_key'            => array('lang' => 'TAPATALK_PUSH_KEY', 'validate' => 'string','type' => 'text:40:60','explain' => true),                
-                        'tapatalk_register_status'    => array('lang' => 'TAPATALK_REGISTER_STATUS', 'validate' => 'string',    'type' => 'custom',    'explain' => true,    'method' => 'select_register_status'),                        
+                        'tapatalk_push_key'            => array('lang' => 'TAPATALK_PUSH_KEY', 'validate' => 'string','type' => 'text:40:60','explain' => true),
+                        'tapatalk_register_status'    => array('lang' => 'TAPATALK_REGISTER_STATUS', 'validate' => 'string',    'type' => 'custom',    'explain' => true,    'method' => 'select_register_status'),
                         'tapatalk_auto_approve' => array('lang' => 'TAPATALK_AUTO_APPROVE', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => false),
-                        'tapatalk_spam_status'    => array('lang' => 'TAPATALK_SPAM_STATUS', 'validate' => 'string',    'type' => 'custom',    'explain' => true,    'method' => 'select_spam_status'),
                         'tapatalk_register_group'    => array('lang' => 'TAPATALK_REGISTER_GROUP', 'validate' => 'string',    'type' => 'custom',    'explain' => true,    'method' => 'select_register_group'),
                         'tapatalk_ad_filter'        => array('lang' => 'TAPATALK_AD_FILTER', 'validate' => 'string',    'type' => 'custom',    'explain' => true,    'method' => 'select_mutil_group_box'),
                         'tapatalkdir'                => array('lang' => 'MOBIQUO_NAME', 'validate' => 'string', 'type' => 'text:10:12', 'explain' => true),
-                        
+
                         'mobiquo_hide_forum_id'        => array('lang' => 'MOBIQUO_HIDE_FORUM_ID', 'validate' => 'string',    'type' => 'custom',    'explain' => true,    'method' => 'select_box'),
                         'tapatalk_forum_read_only'    => array('lang' => 'TAPATALK_FORUM_READ_ONLY', 'validate' => 'string',    'type' => 'custom',    'explain' => true,    'method' => 'select_box'),
-                        'tapatalk_custom_replace'   => array('lang' => 'TAPATALK_CUSTOM_REPLACE', 'validate' => 'string', 'type' => 'textarea:4:250', 'explain' => true),                    
-                        'tapatalk_app_banner_enable'=> array('lang' => 'TAPATALK_ALLOW_APP_BANNER', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),                            
-                        'tapatalk_twitterfacebook_card_enabled'=> array('lang' => 'TAPATALK_ALLOW_TWITTERFACEBOOK', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),                
-                
-                        'tapatalk_push_type'        => array('lang' => 'TAPATALK_PUSH_TYPE', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),                        
-                        //'mobiquo_reg_url'        => array('lang' => 'MOBIQUO_REG_URL', 'validate' => 'string', 'type' => 'text:30:40', 'explain' => true),    
-                        
-                        
-                        
+                        'tapatalk_custom_replace'   => array('lang' => 'TAPATALK_CUSTOM_REPLACE', 'validate' => 'string', 'type' => 'textarea:4:250', 'explain' => true),
+
+                        'tapatalk_push_type'        => array('lang' => 'TAPATALK_PUSH_TYPE', 'validate' => 'bool', 'type' => 'radio:yes_no', 'explain' => true),
+                        //'mobiquo_reg_url'        => array('lang' => 'MOBIQUO_REG_URL', 'validate' => 'string', 'type' => 'text:30:40', 'explain' => true),
+
+
+
                     )
                 );
                 break;
-            case 'rebranding':
-                $display_vars = array(
-                    'title'    => 'ACP_TAPATALK_REBRANDING',
-                    'vars'    => array(
-                        'legend'                => 'ACP_TAPATALK_REBRANDING',
-                        'tapatalk_app_banner_msg'=> array('lang' => 'TAPATALK_APP_BANNER_MSG', 'validate' => 'string', 'type' => 'textarea:4:250', 'explain' => true),
-                        'tapatalk_app_ios_id'     => array('lang' => 'TAPATALK_APP_IOS_ID', 'validate' => 'string', 'type' => 'text:40:250', 'explain' => true),
-                        'tapatalk_android_url'    => array('lang' => 'TAPATALK_ANDROID_URL', 'validate' => 'string', 'type' => 'text:40:250', 'explain' => true),
-                    )
-                );
-                break;
-            
         }
-        
+
 
         if (isset($display_vars['lang']))
         {
@@ -122,7 +107,7 @@ class acp_mobiquo
                 }
                 if(isset($_REQUEST['config']['tapatalk_ad_filter']))
                 {
-                    $tapatalk_ad_filter = implode(',',$_REQUEST['config']['tapatalk_ad_filter']);            
+                    $tapatalk_ad_filter = implode(',',$_REQUEST['config']['tapatalk_ad_filter']);
                     $cfg_array['tapatalk_ad_filter'] = $tapatalk_ad_filter;
                 }
                 elseif ($submit && empty($_REQUEST['config']['tapatalk_ad_filter']))
@@ -130,19 +115,19 @@ class acp_mobiquo
                     $cfg_array['tapatalk_ad_filter'] = '';
                 }
             }
-            
+
             $this->new_config[$config_name] = $config_value = $cfg_array[$config_name];
             if (!isset($cfg_array[$config_name]) || strpos($config_name, 'legend') !== false)
             {
                 continue;
             }
-            
+
             if ($submit)
             {
                 set_config($config_name, $config_value);
             }
         }
-        
+
         if ($submit)
         {
             add_log('admin', 'LOG_CONFIG_' . strtoupper($mode));
@@ -151,7 +136,7 @@ class acp_mobiquo
         }
 
         $this->tpl_name = 'acp_mobiquo';
-        $this->page_title = $display_vars['title']; 
+        $this->page_title = $display_vars['title'];
 
         $template->assign_vars(array(
             'L_TITLE'            => $user->lang[$display_vars['title']],
@@ -213,7 +198,7 @@ class acp_mobiquo
             unset($display_vars['vars'][$config_key]);
         }
     }
-    
+
     function select_box($value, $key)
     {
         global $user, $config, $phpbb_root_path,$db,$strSelect;
@@ -222,11 +207,11 @@ class acp_mobiquo
         $root_forum_id = 0;
         $sql = 'SELECT f.* '. ($user->data['is_registered'] ? ', fw.notify_status' : '') . '
             FROM ' . FORUMS_TABLE . ' f ' .
-            ($user->data['is_registered'] ? ' LEFT JOIN ' . FORUMS_WATCH_TABLE . ' fw ON (fw.forum_id = f.forum_id AND fw.user_id = ' . $user->data['user_id'] . ')' : '') . 
+            ($user->data['is_registered'] ? ' LEFT JOIN ' . FORUMS_WATCH_TABLE . ' fw ON (fw.forum_id = f.forum_id AND fw.user_id = ' . $user->data['user_id'] . ')' : '') .
             $forum_filter . '
             ORDER BY f.left_id ASC';
         $result = $db->sql_query($sql, 600);
-        
+
         $forum_rows = array();
         while ($row = $db->sql_fetchrow($result))
         {
@@ -236,8 +221,8 @@ class acp_mobiquo
         $this->display_select_forum($forum_rows,0,$key);
         $strSelect .= '</select>';
         return $strSelect;
-    } 
-    
+    }
+
     function display_select_forum($rows,$parent_id,$key)
     {
         global $user, $config,$db,$strSelect;
@@ -264,10 +249,10 @@ class acp_mobiquo
             else
             {
                 continue;
-            }                    
+            }
         }
     }
-    
+
     function select_register_group($value,$key)
     {
         global $db, $user, $config;
@@ -276,7 +261,7 @@ class acp_mobiquo
             FROM ' . GROUPS_TABLE . "
             ORDER BY group_type DESC, group_name ASC";
         $result = $db->sql_query($sql);
-        
+
         $s_group_options = '<select id="' . $key . '" name="config[' . $key . ']"  >';
         while ($row = $db->sql_fetchrow($result))
         {
@@ -287,17 +272,17 @@ class acp_mobiquo
 
         return $s_group_options.'</select>';
     }
-    
+
     function select_mutil_group_box($value,$key)
     {
         global $db, $user, $config;
         $selected_arr = explode(',', $config[$key]);
-        
+
         $sql = 'SELECT group_id, group_name, group_type
             FROM ' . GROUPS_TABLE . "
             ORDER BY group_type DESC, group_name ASC";
         $result = $db->sql_query($sql);
-        
+
         $s_group_options = '<select id="' . $key . '" name="config[' . $key . '][]"  multiple="multiple" size="8">';
         while ($row = $db->sql_fetchrow($result))
         {
@@ -308,7 +293,7 @@ class acp_mobiquo
 
         return $s_group_options.'</select>';
     }
-    
+
     function select_register_status($value,$key)
     {
         global $user;
@@ -331,7 +316,7 @@ class acp_mobiquo
         }
         return $s_group_options.'</select>';
     }
-    
+
     function select_spam_status($value,$key)
     {
         global $user;
@@ -344,15 +329,15 @@ class acp_mobiquo
         }
         return $s_group_options.'</select>';
     }
-    
+
     function getChild($row,$parent_id)
     {
         $temp = array();
-        foreach ($row as $info) 
+        foreach ($row as $info)
         {
             if($parent_id == $info['parent_id'])
             {
-                $temp[] = $info; 
+                $temp[] = $info;
             }
         }
         return $temp;

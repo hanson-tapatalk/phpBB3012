@@ -11,7 +11,7 @@ $user->setup('ucp');
 
 function sign_in_func()
 {
-    global $config, $phpbb_root_path, $phpEx;
+    global $config, $phpbb_root_path, $phpEx, $user;
     
     include_once($phpbb_root_path . 'includes/functions_profile_fields.' . $phpEx);
     
@@ -20,7 +20,18 @@ function sign_in_func()
     $data['username'] = trim($_POST['username']);
     $data['password'] = trim($_POST['password']);
     $data['email'] = trim($_POST['email']);
-    $data['check_spam'] = (isset($config['tapatalk_spam_status']) && ($config['tapatalk_spam_status'] == 1 || $config['tapatalk_spam_status'] == 3)) ? 1 : 0;
+
+    // it's register if there is password.
+    // if the forum disabled register or In-App Registration disabled in tapatalk plugin
+    if (!empty($data['password']) && ($config['require_activation'] == USER_ACTIVATION_DISABLE || (isset($config['tapatalk_register_status']) && $config['tapatalk_register_status'] == 0)))
+    {
+        return new xmlrpcresp(new xmlrpcval(
+            array(
+                'result' => new xmlrpcval(false, 'boolean'),
+                'result_text' => new xmlrpcval($user->lang['UCP_REGISTER_DISABLE'], 'base64'),
+            ), 'struct'));
+    }
+    
     $sso = new TTSSOBase(new TTForum());
     $sso->signIn($data);
     if ($sso->result === FALSE)

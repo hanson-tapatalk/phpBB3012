@@ -148,3 +148,52 @@ function push_content_check_func(){
     echo ($format == 'json') ? json_encode($result) : serialize($result);
     exit;
 }
+
+function set_forum_info_func()
+{
+    $code = trim($_REQUEST['code']);
+    $api_key = trim($_REQUEST['api_key']);
+    $banner_info = trim($_REQUEST['banner_info']);
+    $connection = new classTTConnection();
+    $response = $connection->actionVerification($code,'set_forum_info');
+    $result = false;
+    if($response === true)
+    {
+        if (!empty($api_key)) 
+        {
+            set_config('tapatalk_push_key', $api_key);
+        }
+        
+        if (!empty($banner_info)) 
+        {
+            global $config, $phpbb_home;
+            if ($banner_info === true)
+            {
+                $banner_info = $connection->getForumInfo($phpbb_home, $config['tapatalk_push_key']);
+            }
+            if (is_string($banner_info)) 
+            {
+                $banner_info = json_decode($banner_info, true);
+            }
+
+            if (isset($banner_info['banner_enable'])) 
+            {
+                set_config('tapatalk_app_banner_enable', $banner_info['banner_enable']);    
+            }
+
+            if (isset($banner_info['google_enable']))
+            {
+                set_config('tapatalk_google_enable', $banner_info['google_enable']);
+            }
+            
+            set_config('tapatalk_banner_update', time());
+        }
+        $result = true;
+    }
+    $data = array(
+        'result' => $result,
+        'result_text' => $banner_info,
+    );
+
+    echo json_encode($data);
+}

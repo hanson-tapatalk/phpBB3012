@@ -16,7 +16,9 @@ if(!defined('IN_PHPBB')) exit;
 	'
     ),
 $message);*/
-$message = preg_replace('#<a [^>]*?href="https?://(www\.)?vimeo\.com/(\d+)"[^>]*?>[^>]*?</a>#si', 
+$message = preg_replace("#\[url='([^']+)'\]([^\[]+)\[\/url]#si", "<a href=\"$1\" class=\"postlink\">$2</a>",$message);
+
+$message = preg_replace('#<a [^>]*?href="https?://(www\.)?vimeo\.com/(\d+)"[^>]*?>[^>]*?</a>#si',
 '<iframe src="https://player.vimeo.com/video/$2" width="500" height="300" frameborder="0"></iframe>', $message);
 // display emoji from app
 $protocol = ($config['cookie_secure'])  ? 'https' : 'http';

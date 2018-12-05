@@ -191,27 +191,34 @@ Class TapatalkPush extends TapatalkBasePush {
     public function doPushSubTopic($data)
     {
         global $table_prefix, $db;
-                           
-        $sql = "SELECT ttu.userid FROM " . $table_prefix . "tapatalk_users ttu WHERE ttu.userid =" . $data['topic_poster'];
-        $result = $db->sql_query($sql);
-        $pushUsers = array();
-        while($row = $db->sql_fetchrow($result))
+        try
         {
-            if($this->isIgnoreUser($row['userid'])) continue;
-            $pushUsers[] = $row['userid'];
+            if(isset($data['topic_poster']) && !empty($data['topic_poster']))
+            {
+                $sql = "SELECT ttu.userid FROM " . $table_prefix . "tapatalk_users ttu WHERE ttu.userid =" . $data['topic_poster'];
+                $result = $db->sql_query($sql);
+                $pushUsers = array();
+                while($row = $db->sql_fetchrow($result))
+                {
+                    if($this->isIgnoreUser($row['userid'])) continue;
+                    $pushUsers[] = $row['userid'];
+                }
+                $db->sql_freeresult($result);
+                
+                $ttp_data = array(               
+                    'id'             => $data['topic_id'],
+                    'subid'          => $data['topic_first_post_id'],
+                    'subfid'         => $data['forum_id'],
+                    'sub_forum_name' => self::push_clean($data['forum_name']),
+                    'title'          => self::push_clean($data['topic_title']),
+                    'content'        => '',
+                );   
+                
+                $this->push($ttp_data, $pushUsers, 'newsub', $data);                   
+            }
         }
-        $db->sql_freeresult($result);
-        
-        $ttp_data = array(               
-            'id'             => $data['topic_id'],
-            'subid'          => $data['topic_first_post_id'],
-            'subfid'         => $data['forum_id'],
-            'sub_forum_name' => self::push_clean($data['forum_name']),
-            'title'          => self::push_clean($data['topic_title']),
-            'content'        => '',
-        );   
-        
-        $this->push($ttp_data, $pushUsers, 'newsub', $data);                   
+        catch(Exception $ex)
+        {}
     }
 
     public function isIgnoreUser($uid)
@@ -232,7 +239,7 @@ Class TapatalkPush extends TapatalkBasePush {
     
     public function doPushTag($data)
     {
-        global $user, $config, $table_prefix, $db;
+        global $user, $config, $table_prefix, $db, $auth;
            
         $user_name_arr = $this->getTagList($data['message']);    
         if(empty($user_name_arr)) return false;                  
@@ -246,6 +253,28 @@ Class TapatalkPush extends TapatalkBasePush {
             $quotedUsers[] = $row['user_id'];
         }
         $db->sql_freeresult($result);
+        
+        $auth_read = $auth->acl_raw_data($quotedUsers, 'f_read', $data['forum_id']);
+        
+        if (empty($auth_read))
+		{
+			return false;
+		}
+		
+		 $allowedQuotedUsers = array();
+		
+		foreach($auth_read as $user_id => $perm)
+		{
+			if($perm[$data['forum_id']]['f_read'] == ACL_YES)
+			{
+				$allowedQuotedUsers[] = $user_id;
+			}
+		}
+		
+		if (empty($allowedQuotedUsers))
+		{
+			return false;
+		}
         
         $ttp_data = array(               
             'id'             => $data['topic_id'],
@@ -308,7 +337,6 @@ Class TapatalkPush extends TapatalkBasePush {
         $data['key']         = $this->pushKey;
         $data['url']         = $this->siteUrl;
         $data['dateline']    = time();
-        $data['author_ip']   = self::getClientIp();
         $data['author_ua']   = self::getClienUserAgent();
         $data['author_type'] = check_return_user_type($user->data['user_id'], false);
         $data['from_app']    = self::getIsFromApp();

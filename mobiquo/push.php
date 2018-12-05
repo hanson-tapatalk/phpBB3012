@@ -35,8 +35,8 @@ echo '<b>Tapatalk Push Notification Status Monitor</b><br/>';
 echo '<br/>Push notification test: ' . (($return_status === '1') ? '<b>Success</b>' : 'Failed('.$return_status.')');
 echo '<br/>Current forum url: ' . $board_url;
 echo '<br/>Tapatalk user table existence: ' . ($table_exist ? 'Yes' : 'No');
-echo '<br/><br/><a href="http://tapatalk.com/api/api.php" target="_blank">Tapatalk API for Universal Forum Access</a> | <a href="http://tapatalk.com/mobile.php" target="_blank">Tapatalk Mobile Applications</a><br>
-    For more details, please visit <a href="http://tapatalk.com" target="_blank">http://tapatalk.com</a>';
+echo '<br/><br/><a href="https://www.tapatalk.com/api/api.php" target="_blank">Tapatalk API for Universal Forum Access</a> | <a href="https://www.tapatalk.com/mobile.php" target="_blank">Tapatalk Mobile Applications</a><br>
+    For more details, please visit <a href="https://www.tapatalk.com" target="_blank">https://www.tapatalk.com</a>';
 
 
 

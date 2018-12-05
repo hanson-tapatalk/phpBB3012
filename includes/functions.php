@@ -4605,6 +4605,34 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 	// Send a proper content-language to the output
 	$user_lang = $user->lang['USER_LANG'];
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $tapatalk_dir = !empty($config['tapatalkdir']) ? $config['tapatalkdir'] : 'mobiquo';
     if(file_exists($phpbb_root_path.$tapatalk_dir.'/hook/head_output_hook.php'))
     {
@@ -4653,6 +4681,34 @@ function page_header($page_title = '', $display_online_list = true, $item_id = 0
 		'_SID'				=> $_SID,
 		'SESSION_ID'		=> $user->session_id,
 		'ROOT_PATH'			=> $phpbb_root_path,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //tapatalk add
         'META'     => $app_head_include,

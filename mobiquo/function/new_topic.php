@@ -300,20 +300,11 @@ function new_topic_func($xmlrpc_params)
     {
         $approved = false;
     }
-    
-    $posted_success = false;
-    $topic_id = '';
-    if ($redirect_url)
-    {
-        preg_match('/&amp;t=(\d+)/', $redirect_url, $matches);
-        $topic_id = $matches[1];
-        $posted_success = true;
-    }
-    
+
     $xmlrpc_create_topic = new xmlrpcval(array(
-        'result'    => new xmlrpcval($posted_success, 'boolean'),
-        'topic_id'  => new xmlrpcval($topic_id),
-        'state'     => new xmlrpcval($approved ? 0 : 1, 'int'),
+        'result'    => new xmlrpcval(($data['topic_id'] == 0 ? false : true), 'boolean'),
+        'topic_id'  => new xmlrpcval($data['topic_id']),
+        'state'     => new xmlrpcval(($approved ? 1 : 0), 'int'),
     ), 'struct');
 
     return new xmlrpcresp($xmlrpc_create_topic);

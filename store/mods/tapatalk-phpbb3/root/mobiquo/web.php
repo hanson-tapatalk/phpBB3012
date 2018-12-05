@@ -2,7 +2,7 @@
 
 if(!defined('IN_MOBIQUO')) exit;
 include './config/config.php';
-$latest_vrsion_link = @file_get_contents('http://api.tapatalk.com/v.php?sys=pb30&link');
+$latest_vrsion_link = @file_get_contents('https://api.tapatalk.com/v.php?sys=pb30&link');
 
 if(fileperms('upload.php') < 755)
 {
@@ -25,5 +25,5 @@ echo '<br/>Current Tapatalk plugin version: '.substr($mobiquo_config['version'],
 echo 'Latest Tapatalk plugin version:<u>'.$latest_vrsion_link.'</u>';
 echo '<br>Attachment upload interface status: <a href="upload.php"><u>'.$upload_acc.'</u></a><br>';
 echo 'Push notification interface status: <u><a href="push.php">'.$push_acc.'</u></a><br>';
-echo '<br/><br/><a href="http://tapatalk.com/api/api.php" target="_blank">Tapatalk API for Universal Forum Access</a><br>
-    For more details, please visit <a href="http://tapatalk.com" target="_blank">http://tapatalk.com</a>';
+echo '<br/><br/><a href="https://www.tapatalk.com/api/api.php" target="_blank">Tapatalk API for Universal Forum Access</a><br>
+    For more details, please visit <a href="https://www.tapatalk.com" target="_blank">https://tapatalk.com</a>';

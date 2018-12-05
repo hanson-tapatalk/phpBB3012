@@ -479,6 +479,7 @@ function get_user_info_func($xmlrpc_params)
         'custom_fields_list' => new xmlrpcval($custom_fields_list, 'array'),       
         'can_ban'            => new xmlrpcval($auth->acl_get('m_ban') && $user_id != $user->data['user_id'] ? true : false, 'boolean'),
     	'is_ban'             => new xmlrpcval($user->check_ban($user_id,false,false,true),'boolean'),
+        'is_ignored'         => new xmlrpcval($foe && $foes_enabled, 'boolean')
     );
     
     $xmlrpc_user_info = new xmlrpcval($user_info, 'struct');

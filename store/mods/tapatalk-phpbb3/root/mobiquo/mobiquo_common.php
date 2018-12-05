@@ -301,6 +301,7 @@ function process_short_content($post_text, $length = 200)
         array('reg' => '/\[flash(.*?)\](.*?)\[\/flash(.*?)\]/si','replace' => '[V]'),
         array('reg' => '/\[spoiler(.*?)\](.*?)\[\/spoiler(.*?)\]/si','replace' => '[spoiler]'),
         array('reg' => '/\[spoil(.*?)\](.*?)\[\/spoil(.*?)\]/si','replace' => '[spoiler]'),
+
     );
     //echo $post_text;die();
     foreach ($array_reg as $arr)
@@ -583,6 +584,7 @@ function process_bbcode($message, $uid)
     $message = preg_replace('/\[(youtube|yt|video|googlevideo|gvideo):'.$uid.'\](.*?)\[\/\1:'.$uid.'\]/sie', "video_bbcode_format('$1', '$2')", $message);
     $message = preg_replace('/\[(BBvideo)[\d, ]+:'.$uid.'\](.*?)\[\/\1:'.$uid.'\]/si', "[url=$2]YouTube Video[/url]", $message);
     $message = preg_replace('/\[(spoil|spoiler):'.$uid.'\](.*?)\[\/\1:'.$uid.'\]/si', "[spoiler]$2[/spoiler]", $message);
+    $message = preg_replace('/\[spoiler=([^:]*?):'.$uid.'\](.*?)\[\/spoiler:'.$uid.'\]/si', "$1:<br/>[spoiler]$2[/spoiler]", $message);
     $message = preg_replace('/\[HiddenText=(.*?)\](.*?)\[\/HiddenText\]/si', '[spoiler]$2[/spoiler]', $message);
     $message = preg_replace('/\[b:'.$uid.'\](.*?)\[\/b:'.$uid.'\]/si', '[b]$1[/b]', $message);
     $message = preg_replace('/\[i:'.$uid.'\](.*?)\[\/i:'.$uid.'\]/si', '[i]$1[/i]', $message);
@@ -1302,7 +1304,7 @@ function tt_get_user_by_email($email)
     global $db;
     $sql = 'SELECT *
         FROM ' . USERS_TABLE . "
-        WHERE user_email = '" . $db->sql_escape($email) . "'";
+        WHERE LOWER(user_email) = '" . $db->sql_escape(strtolower($email)) . "'";
     $result = $db->sql_query($sql);
     $row = $db->sql_fetchrow($result);
     $db->sql_freeresult($result);
@@ -1370,20 +1372,3 @@ function is_tapatalk_user($user_id)
     return true;
 }
 
-function tt_is_spam($email,$ip='')
-{
-	global $config,$phpbb_root_path;
-    if($email || $ip)
-    {     
-        if(!defined("TT_ROOT"))
-		{
-			if(!defined('IN_MOBIQUO')) define('IN_MOBIQUO', true);
-			if(empty($config['tapatalkdir'])) $config['tapatalkdir'] = 'mobiquo';
-			define('TT_ROOT',$phpbb_root_path . $config['tapatalkdir'] . '/');
-		}						
-		require_once TT_ROOT."include/classTTConnection.php";
-		$connection = new classTTConnection();     
-        return $connection->checkSpam($email,$ip);     
-    }
-    return true;
-}

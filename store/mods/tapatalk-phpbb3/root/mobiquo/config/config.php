@@ -9,7 +9,7 @@
 defined('IN_MOBIQUO') or exit;
 $mobiquo_config = array(
 	'api_level' => '3',
-	'version' => 'pb30_4.9.8',
+	'version' => 'pb30_5.0.1',
 	'is_beta' => '0',
 	'is_open' => '1',
 	'guest_okay' => '1',

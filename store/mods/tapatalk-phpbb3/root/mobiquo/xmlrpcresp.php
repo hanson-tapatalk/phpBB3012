@@ -103,6 +103,8 @@ function get_thread_func()
             'can_ban'           => new xmlrpcval($can_ban_user, 'boolean'),
         	'is_ban'            => new xmlrpcval($user->check_ban($row['POSTER_ID'],false,false,true),'boolean'),
             'allow_smilies'     => new xmlrpcval($row['enable_smilies'] ? true : false, 'boolean'),
+            'show_reason'       => new xmlrpcval($auth->acl_get('m_edit', $forum_id), 'boolean'),
+            'edit_reason'       => new xmlrpcval($row['post_edit_reason'], 'string'),
         );
 		
         if(!empty($row['EDITER_UID']) && $config['display_last_edited'])
@@ -203,7 +205,7 @@ function get_thread_func()
     //topic author avatar
     $topic_author_info    = tt_get_user_by_id($topic_data['topic_poster']);
     $topic_author_avatar  = get_user_avatar_url($topic_author_info['user_avatar'], $topic_author_info['user_avatar_type']);
-    $can_reply = $auth->acl_get('f_reply', $forum_id) && $topic_data['forum_status'] != ITEM_LOCKED && $topic_data['topic_status'] != ITEM_LOCKED;// && !$auth->acl_get('m_edit', $forum_id);
+    $can_reply = $auth->acl_get('f_reply', $forum_id) && ($auth->acl_get('m_edit', $forum_id) || ($topic_data['forum_status'] != ITEM_LOCKED && $topic_data['topic_status'] != ITEM_LOCKED));// && !$auth->acl_get('m_edit', $forum_id);
     $result = array(
         'total_post_num' => new xmlrpcval($total_posts, 'int'),
         'forum_id'       => new xmlrpcval($forum_id),

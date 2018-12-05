@@ -326,14 +326,35 @@ $versions = array(
     ),
     '4.9.6' => array(),
 	'4.9.7' => array(),
-    '4.9.8' => array()
-);		
+    '4.9.8' => array(),
+    '5.0.0' => array(
+        'custom'	=> 'mobiquo_update_v500',
+    ),
+    '5.0.1' => array(
+        'custom'	=> 'mobiquo_update_v500',
+    ),
+);
 
-		
+
 
 // Include the UMIF Auto file and everything else will be handled automatically.
 include($phpbb_root_path . 'umil/umil_auto.' . $phpEx);
 
+function mobiquo_update_v500($action, $version)
+{
+    global $db, $table_prefix, $umil;
+    if ($action == 'install')
+    {
+        // Run this when installing
+        if ($umil->table_exists($table_prefix . 'modules'))
+        {
+            $sql = 'DELETE FROM ' . $table_prefix . "modules WHERE module_langname='ACP_TAPATALK_REBRANDING'";
+            $db->sql_query($sql);
+            return 'TAPATALK_BYO_REMOVED';
+        }
+        return 'MOBIQUO_NOTHING_TO_UPDATE';
+    }
+}
 /*
 * Here is our custom function that will be called
 *
@@ -344,7 +365,7 @@ function mobiquo_table($action, $version)
 {
 	global $db, $table_prefix, $umil;
 
-	if ($action == 'install')
+	if ($action == 'install' || $action == 'update')
 	{
 		// Run this when installing
 

@@ -1,7 +1,7 @@
 <?php
 
 defined('IN_MOBIQUO') or exit;
-$tt_server_post_method = array('set_api_key', 'user_subscription', 'push_content_check');
+$tt_server_post_method = array('set_api_key', 'user_subscription', 'push_content_check', 'set_forum_info');
 $tt_server_get_method = array();
 if(isset($_POST['method_name']) && in_array($_POST['method_name'], $tt_server_post_method)){
     include './function/function.php';

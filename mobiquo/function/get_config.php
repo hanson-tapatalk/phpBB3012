@@ -87,7 +87,6 @@ function get_config_func()
 
 		    $mobiquo_config['sso_signin'] = 0;
 		    $mobiquo_config['sso_register'] = 0;
-		    $mobiquo_config['native_register'] = 0;
 		}
 		elseif($config['tapatalk_register_status'] == 1)
 		{

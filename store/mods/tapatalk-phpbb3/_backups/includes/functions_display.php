@@ -1161,6 +1161,34 @@ function watch_topic_forum($mode, &$s_watching, $user_id, $forum_id, $topic_id, 
 
 				if ($notify_status != NOTIFY_YES)
 				{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 					$sql = 'UPDATE ' . $table_sql . "
 						SET notify_status = " . NOTIFY_YES . "
 						WHERE $where_sql = $match_id
@@ -1186,6 +1214,34 @@ function watch_topic_forum($mode, &$s_watching, $user_id, $forum_id, $topic_id, 
 					}
 
 					$is_watching = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 					$sql = 'INSERT INTO ' . $table_sql . " (user_id, $where_sql, notify_status)
 						VALUES ($user_id, $match_id, " . NOTIFY_YES . ')';
